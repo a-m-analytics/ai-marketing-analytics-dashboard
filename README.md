@@ -27,7 +27,7 @@ The main table is called `ad_performance` and includes columns like:
 - Video metrics such as `video_plays_50`, `video_plays_100`, `thruplays`
 - Prediction columns: `predicted_purchases_value`, `predicted_roas`
 
-(I converted the original CSV headers to snake_case for the database.)
+(I converted the original CSV headers to snake_case for the database and performed cleansing to get it in the right format.)
 
 ## How it works (high-level)
 
@@ -45,7 +45,7 @@ The main table is called `ad_performance` and includes columns like:
 3. **Train the machine learning model in Python**
    - I use Python and pandas to read the data from PostgreSQL.
    - I pick features like spend, impressions, reach, CTR, CPC, CPM, link clicks, and video plays.
-   - I train a regression model (for example, RandomForestRegressor from scikit-learn) to predict `purchases_conversion_value`.
+   - I train a regression model ( RandomForestRegressor from scikit-learn) to predict `purchases_conversion_value`.
    - I then calculate `predicted_roas = predicted_purchases_value / amount_spent_usd`.
 
 4. **Write predictions back to the database**
@@ -56,12 +56,10 @@ The main table is called `ad_performance` and includes columns like:
    - In Metabase, I create charts that compare actual ROAS to predicted ROAS by campaign or ad.
    - I also build tables that show the difference between actual and predicted values so I can see how well the model is doing.
 
-## Project structure (planned)
+## Project structure
 - `sql/schema.sql` – SQL to create the `ad_performance` table (and add prediction columns).
-- `train_and_update_predictions.py` – Python script to train the model and update predictions in the database.
-- `requirements.txt` – Python dependencies.
-- `screenshots/` – Dashboard screenshots (for documentation and college apps).
-- `notebooks/` (optional) – Jupyter notebooks for experiments.
+- `screenshots/` – Dashboard screenshots.
+- `notebooks/`  – Python script to train the model and update predictions in the database.
 
 ## Why I built this
 I’m a 10th grade student interested in data science, machine learning, and marketing. I wanted to create a project that feels like something used in a real company: collecting data, storing it in a database, analyzing it in a dashboard, and using AI to make predictions that can help with decisions like ad budget allocation.
