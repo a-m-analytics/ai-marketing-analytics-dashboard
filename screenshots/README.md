@@ -13,7 +13,7 @@
 
 <br>
 
-![Prediction Errors](.Prediction%20Errors%20table.png)
+![Prediction Errors](./Prediction%20Errors%20table.png)
 
 **Model Accuracy Analysis**  
 *Which campaigns does the AI get right/wrong? Error ranked by biggest difference*
