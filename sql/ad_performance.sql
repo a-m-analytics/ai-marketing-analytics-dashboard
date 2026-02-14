@@ -47,3 +47,19 @@ select * from ad_performance ;
 delete from ad_performance where ad_set_name ='All';
 delete from ad_performance where ad_name ='All';
 
+-- create a id column as a unique identifier to match the machine learning predictions from the py code
+-- Add ID column if it doesn't exist (running numbers 1, 2, 3...)
+ALTER TABLE ad_performance 
+ADD COLUMN IF NOT EXISTS id INTEGER;
+
+-- Update the table to fill ID column with sequential numbers 1-N
+WITH numbered_rows AS (
+  SELECT 
+    ctid,
+    row_number() OVER (ORDER BY (SELECT NULL)) as row_num
+  FROM ad_performance
+)
+UPDATE ad_performance 
+SET id = nr.row_num
+FROM numbered_rows nr
+WHERE ad_performance.ctid = nr.ctid;
